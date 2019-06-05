@@ -1,13 +1,13 @@
 {
-    "name": "secrethub-example-app",
-    "description": "Example app demonstrating SecretHub run",
-    "main": "app.js",
-    "license": "MIT",
-    "scripts": {
-      "start": "node app.js"
-    },
-    "dependencies": {
-      "pg": "^7.11.0"
-    }
+  "name": "secrethub-example-app",
+  "description": "Example app demonstrating SecretHub run",
+  "main": "app.js",
+  "license": "MIT",
+  "repository": "github:secrethub/example-app",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "pg": "^7.11.0"
   }
-  
+}
