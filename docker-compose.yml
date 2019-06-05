@@ -1,0 +1,12 @@
+version: "3"
+services:
+  app:
+    build: .
+    ports:
+      - 8080:8080
+    volumes: 
+      - ~/.secrethub:/root/.secrethub
+    depends_on: 
+      - postgres
+  postgres:
+    image: postgres:alpine
