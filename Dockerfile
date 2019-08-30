@@ -6,14 +6,15 @@ RUN curl -fsSLo /etc/apk/keys/secrethub.rsa.pub https://alpine.secrethub.io/pub 
 
 RUN apk add --update secrethub-cli
 
-COPY secrethub.yml .
+COPY secrethub.env .
 
-COPY package*.json ./
+COPY package.json .
+COPY package-lock.json .
 RUN npm install
 
 COPY app.js .
 
 EXPOSE 8080
 
-ENTRYPOINT ["secrethub", "run", "--template", "secrethub.yml", "--"]
+ENTRYPOINT ["secrethub", "run", "--"]
 CMD ["npm", "start"]

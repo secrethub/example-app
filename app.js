@@ -1,21 +1,29 @@
 const http = require('http')
-const pg = require('pg')
+const request = require('request-promise-native')
 
 const port = 8080
-const pool = new pg.Pool() // looks for PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE
+
+const httpbinBearer = process.env.HTTPBIN_BEARER || ''
+if (httpbinBearer) {
+    console.log(`Environment variable HTTPBIN_BEARER is set to ${httpbinBearer}`)
+} else {
+    console.log(`Environment variable HTTPBIN_BEARER is not set`)
+}
 
 const server = http.createServer(async (req, res) => {
     var color
     try {
-        await pool.connect()
+        httpbinResp = await request.get('https://httpbin.org/bearer', {
+            headers: {'Authorization': `Bearer ${httpbinBearer}`}
+        })
+        console.log(`httpbin success response: ${httpbinResp}`)
         res.statusCode = 200
         color = 'green'
     } catch (error) {
-        console.log(error)
+        console.log(`httpbin error status code: ${error.statusCode}, make sure to set HTTPBIN_BEARER`)
         res.statusCode = 500
         color = 'red'
     }
-
     res.end(`<html><body style="background: ${color}"></body></html>`)
 })
 
